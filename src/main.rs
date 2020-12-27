@@ -14,6 +14,12 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(Logger::default())
             .service(routes::get_results::exec)
+            .service(routes::get_candidates_by_country::exec)
+            .service(routes::get_closest_vote_difference::exec)
+            .service(routes::get_landslide_victory::exec)
+            .service(routes::get_results_by_country::exec)
+            .service(routes::get_top_five_candidates_by_vote::exec)
+            .service(routes::post_vote::exec)
     })
     .bind("127.0.0.1:8080")?
     .run()
