@@ -5,15 +5,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Result {
-    candidate: String,
-    total_votes: u32,
+    country: String,
+    winner: String,
+    votes: u32
 }
 
-#[get("/getResults")]
+#[get("/getLandslideVictory")]
 pub async fn exec() -> HttpResponse {
-    let res = crate::routes::get::get::<Vec<Result>>(
+    let res = crate::routes::get::get::<Result>(
         get_config().calculate_adress,
-        "results".to_string(),
+        "getLandslideVictory".to_string(),
     )
     .await;
     match res {

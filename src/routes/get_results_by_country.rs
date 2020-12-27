@@ -1,0 +1,19 @@
+
+use serde::{Serialize, Deserialize};
+use actix_web::{get, HttpResponse};
+
+use crate::config::get_config;
+#[derive(Serialize, Deserialize)]
+pub struct Result {
+    country: String,
+    totalVotes: u32
+}
+
+#[get("/getResultsByCountry")]
+pub async fn exec() -> HttpResponse {
+    let res = crate::routes::get::get::<Vec<Result>>(get_config().calculate_adress, "getResultsByCountry".to_string()).await;
+    match res {
+        Ok(result) => {return HttpResponse::Ok().json(result);}
+        Err(err) => {return HttpResponse::BadRequest().body(err)}
+    }
+}

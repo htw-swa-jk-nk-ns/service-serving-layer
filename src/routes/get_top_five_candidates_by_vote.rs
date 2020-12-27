@@ -6,14 +6,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize)]
 pub struct Result {
     candidate: String,
-    total_votes: u32,
+    votes: u32,
 }
 
-#[get("/getResults")]
+#[get("/getTopFiveCandidatesByVote")]
 pub async fn exec() -> HttpResponse {
     let res = crate::routes::get::get::<Vec<Result>>(
         get_config().calculate_adress,
-        "results".to_string(),
+        "getTopFiveCandidatesByVote".to_string(),
     )
     .await;
     match res {
