@@ -11,7 +11,7 @@ pub struct Result {
 
 #[get("/getTopFiveCandidatesByVote")]
 pub async fn exec() -> HttpResponse {
-    let res = crate::routes::get::get::<Vec<Result>>(
+    let res = crate::helpers::get::<Vec<Result>>(
         get_config().calculate_adress,
         "getTopFiveCandidatesByVote".to_string(),
     )

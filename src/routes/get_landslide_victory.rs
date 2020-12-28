@@ -12,7 +12,7 @@ pub struct Result {
 
 #[get("/getLandslideVictory")]
 pub async fn exec() -> HttpResponse {
-    let res = crate::routes::get::get::<Result>(
+    let res = crate::helpers::get::<Result>(
         get_config().calculate_adress,
         "getLandslideVictory".to_string(),
     )

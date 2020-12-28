@@ -5,6 +5,7 @@ use env_logger::Env;
 
 mod config;
 mod routes;
+mod helpers;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

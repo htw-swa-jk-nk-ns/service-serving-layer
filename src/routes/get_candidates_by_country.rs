@@ -17,7 +17,7 @@ pub struct Candidate {
 
 #[get("/getCandidatesByCountry")]
 pub async fn exec() -> HttpResponse {
-    let res = crate::routes::get::get::<Vec<Result>>(get_config().calculate_adress, "getCandidatesByCountry".to_string()).await;
+    let res = crate::helpers::get::<Vec<Result>>(get_config().calculate_adress, "getCandidatesByCountry".to_string()).await;
     match res {
         Ok(result) => {return HttpResponse::Ok().json(result);}
         Err(err) => {return HttpResponse::BadRequest().body(err)}

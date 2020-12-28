@@ -19,7 +19,7 @@ pub struct Candidate {
 
 #[get("/getClosestVoteDifference")]
 pub async fn exec() -> HttpResponse {
-    let res = crate::routes::get::get::<Result>(
+    let res = crate::helpers::get::<Result>(
         get_config().calculate_adress,
         "getClosestVoteDifference".to_string(),
     )

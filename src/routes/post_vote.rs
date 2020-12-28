@@ -23,7 +23,7 @@ pub async fn exec(info: web::Json<Vec<Vote>>) -> HttpResponse {
         }
     }).collect();
 
-    let res = crate::routes::post::post::<Vec<Vote>>(
+    let res = crate::helpers::post::<Vec<Vote>>(
         get_config().calculate_adress,
         "newVote".to_string(),
         votes
