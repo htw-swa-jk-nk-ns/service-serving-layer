@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 pub struct Result {
     country: String,
     winner: String,
-    votes: u32
+    votes: u32,
 }
 
 #[get("/getLandslideVictory")]

@@ -8,13 +8,13 @@ pub struct Result {
     country: String,
     total_votes: u32,
     top_candidates: Vec<Candidate>,
-    difference: u32
+    difference: u32,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct Candidate {
     name: String,
-    votes: u32
+    votes: u32,
 }
 
 #[get("/getClosestVoteDifference")]

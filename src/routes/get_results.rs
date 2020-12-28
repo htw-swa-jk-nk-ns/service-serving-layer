@@ -11,11 +11,9 @@ pub struct Result {
 
 #[get("/getResults")]
 pub async fn exec() -> HttpResponse {
-    let res = crate::helpers::get::<Vec<Result>>(
-        get_config().calculate_adress,
-        "results".to_string(),
-    )
-    .await;
+    let res =
+        crate::helpers::get::<Vec<Result>>(get_config().calculate_adress, "results".to_string())
+            .await;
     match res {
         Ok(result) => {
             return HttpResponse::Ok().json(result);

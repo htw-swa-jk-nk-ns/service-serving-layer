@@ -1,9 +1,3 @@
-
-
-
-
-
-
 pub async fn get<T>(adress: String, endpoint: String) -> Result<T, String>
 where
     T: for<'de> serde::Deserialize<'de>,

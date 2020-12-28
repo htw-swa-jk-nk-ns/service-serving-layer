@@ -1,4 +1,3 @@
-
 pub async fn post<T>(adress: String, endpoint: String, target: T) -> Result<(), String>
 where
     T: serde::Serialize,
