@@ -1,4 +1,4 @@
-use crate::config::get_config;
+use crate::{config::get_config, helpers::APIError};
 use actix_web::{get, HttpResponse};
 
 use serde::{Deserialize, Serialize};
@@ -10,16 +10,11 @@ pub struct Result {
 }
 
 #[get("/getTopFiveCandidatesByVote")]
-pub async fn exec() -> HttpResponse {
+pub async fn exec() -> actix_web::Result<HttpResponse, APIError> {
     let res = crate::helpers::get::<Vec<Result>>(
         get_config().calculate_adress,
         "getTopFiveCandidatesByVote".to_string(),
     )
-    .await;
-    match res {
-        Ok(result) => {
-            return HttpResponse::Ok().json(result);
-        }
-        Err(err) => return HttpResponse::BadRequest().body(err),
-    }
+    .await?;
+    Ok(HttpResponse::Ok().json(res))
 }
