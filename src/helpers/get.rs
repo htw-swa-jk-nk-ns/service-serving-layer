@@ -7,10 +7,6 @@ where
 {
     let calculate_path = format!("{}{}", adress, endpoint);
     let resp = reqwest::get(&calculate_path).await?;
-
-    let res;
-
-
-    res = resp.json::<T>().await?;
+    let res = resp.json::<T>().await?;
     return Ok(res);
 }
