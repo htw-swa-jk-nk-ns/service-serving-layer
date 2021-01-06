@@ -4,17 +4,24 @@ use config::{ConfigError, Config, File, Environment};
 
 #[derive(Deserialize, Clone)]
 pub struct Settings {
-    pub serving_layer_port: Option<String>,
-    pub serving_layer_ip: Option<String>,
     pub calculate_adress: String,
+    pub raw_data_adress: String,
 }
 
 pub fn get_config() -> Settings {
-    Settings::new().unwrap()
+    Settings::new()
 }
 
 impl Settings {
-    pub fn new() -> Result<Self, ConfigError> {
+
+    pub fn new() -> Self {
+        Self {
+            calculate_adress: "service-calculate:8889".to_owned(),
+            raw_data_adress: "service-raw-data".to_owned(),
+        }
+    }
+    #[allow(dead_code)]
+    pub fn new_old() -> Result<Self, ConfigError> {
         let mut s = Config::new();
 
         s.merge(File::with_name("Config"))?;
