@@ -5,3 +5,4 @@ pub mod get_results;
 pub mod get_results_by_country;
 pub mod get_top_five_candidates_by_vote;
 pub mod post_vote;
+pub mod get_all_data;
