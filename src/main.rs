@@ -21,6 +21,7 @@ async fn main() -> std::io::Result<()> {
             .service(routes::get_top_five_candidates_by_vote::exec)
             .service(routes::post_vote::exec)
             .service(routes::get_all_data::exec)
+            .service(routes::test::exec)
     })
     .bind("0.0.0.0:8080")?
     .run()
