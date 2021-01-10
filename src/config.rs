@@ -17,7 +17,7 @@ impl Settings {
     pub fn new() -> Self {
         Self {
             calculate_adress: "service-calculate:8889".to_owned(),
-            raw_data_adress: "service-raw-data".to_owned(),
+            raw_data_adress: "service-raw-data:8889".to_owned(),
         }
     }
     #[allow(dead_code)]
