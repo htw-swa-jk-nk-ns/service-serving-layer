@@ -2,6 +2,7 @@ pub async fn post<T>(adress: String, endpoint: String, target: T) -> Result<(), 
 where
     T: serde::Serialize,
 {
+    println!("POST BODY: {:?}", serde_json::to_string_pretty(&target));
     let client = reqwest::Client::new();
     let calculate_path = format!("{}{}", adress, endpoint);
     let resp = client.post(&calculate_path).json(&target).send().await;
