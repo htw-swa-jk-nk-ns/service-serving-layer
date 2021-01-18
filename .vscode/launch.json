@@ -7,6 +7,28 @@
         {
             "type": "lldb",
             "request": "launch",
+            "name": "Debug executable 'service-serving-layer' with Kubernetes",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=service-serving-layer",
+                    "--package=service-serving-layer"
+                ],
+                "filter": {
+                    "name": "service-serving-layer",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "bridge-to-kubernetes.service",
+            "env": {
+                "GRPC_DNS_RESOLVER": "native"
+            }
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
             "name": "Debug executable 'service-serving-layer'",
             "cargo": {
                 "args": [
