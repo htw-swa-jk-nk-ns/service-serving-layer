@@ -14,13 +14,15 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
 
-        let cors = Cors::default()
+        let _cors_old = Cors::default()
               .send_wildcard()
               .allow_any_header()
-              .allowed_methods(vec!["GET", "POST"])
+              .allow_any_method()
               .expose_any_header()
               .allow_any_origin()
               .max_age(3600);
+
+        let cors = Cors::permissive();
 
         App::new()
             .wrap(cors)
