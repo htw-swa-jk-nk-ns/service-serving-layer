@@ -8,7 +8,6 @@ pub struct Vote {
     pub name: String,
     pub country: String,
     pub candidate: String,
-    pub date: String,
 }
 
 #[post("/vote")]
