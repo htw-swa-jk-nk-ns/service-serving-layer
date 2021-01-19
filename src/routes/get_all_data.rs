@@ -8,7 +8,7 @@ pub struct Data {
     name: String,
     country: String,
     candidate: String,
-    date: String,
+    date: u32,
     id: u32
 }
 

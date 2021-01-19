@@ -13,7 +13,6 @@ use actix_web::{test, web, App};
             name: "Albert Einstein".to_owned(),
             country: "Deutschland".to_owned(),
             candidate: "Red".to_owned(),
-            date: "1611051908741".to_owned()
         };
 
         let data = vec![vote];
