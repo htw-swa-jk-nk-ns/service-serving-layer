@@ -1836,6 +1836,7 @@ name = "service-serving-layer"
 version = "0.1.0"
 dependencies = [
  "actix-cors",
+ "actix-rt",
  "actix-slog",
  "actix-web",
  "config",

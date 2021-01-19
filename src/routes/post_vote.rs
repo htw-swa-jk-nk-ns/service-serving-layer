@@ -5,28 +5,24 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Clone)]
 pub struct Vote {
-    name: String,
-    country: String,
-    candidate: String,
-    date: String,
+    pub name: String,
+    pub country: String,
+    pub candidate: String,
+    pub date: String,
 }
 
 #[post("/vote")]
-pub async fn exec(info: web::Json<Vec<Vote>>) -> HttpResponse {
-    let votes: Vec<Vote> = info
-        .iter()
-        .cloned()
-        .collect();
+pub async fn exec(info: web::Json<Vote>) -> HttpResponse {
 
-    let res = crate::helpers::post::<Vec<Vote>>(
+    let res = crate::helpers::post::<Vote>(
         get_config().raw_data_adress,
         "vote".to_string(),
-        votes,
+        info.into_inner(),
     )
     .await;
     match res {
-        Ok(result) => {
-            return HttpResponse::Ok().json(result);
+        Ok(_) => {
+            return HttpResponse::Ok().finish();
         }
         Err(err) => return HttpResponse::InternalServerError().body(err),
     }

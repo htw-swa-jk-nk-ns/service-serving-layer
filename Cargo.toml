@@ -20,7 +20,16 @@ slog-term = "2.6.0"
 slog-async = "2.5.0"
 log = "0.4.13"
 actix-cors = "0.5.4"
+actix-rt = "1.1.1"
 
 [dependencies.reqwest]
 version = "0.10.10"
 features = ["json"]
+
+[lib]
+name = "service_serving_layer"
+path = "src/lib.rs"
+
+[[bin]]
+name = "service-serving-layer"
+path = "src/main.rs"
