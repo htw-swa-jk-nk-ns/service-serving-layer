@@ -2,9 +2,11 @@ use actix_web::middleware::Logger;
 use actix_web::{guard,http, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 use actix_cors::Cors;
 
-use service_serving_layer::*;
+pub mod config;
+pub mod helpers;
+pub mod routes;
 
-pub static ADRESS: &str = "0.0.0.0:8080";
+pub static ADDRESS: &str = "0.0.0.0:8080";
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -37,7 +39,7 @@ async fn main() -> std::io::Result<()> {
             .service(routes::get_all_data::exec)
             .service(routes::test::exec)
     })
-    .bind(ADRESS)?
+    .bind(ADDRESS)?
     .run()
     .await
 }

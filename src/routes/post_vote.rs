@@ -19,6 +19,7 @@ pub async fn exec(info: web::Json<Vote>) -> HttpResponse {
         info.into_inner(),
     )
     .await;
+    println!("test");
     match res {
         Ok(_) => {
             return HttpResponse::Ok().finish();

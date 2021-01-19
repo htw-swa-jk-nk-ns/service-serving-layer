@@ -26,10 +26,6 @@ actix-rt = "1.1.1"
 version = "0.10.10"
 features = ["json"]
 
-[lib]
-name = "service_serving_layer"
-path = "src/lib.rs"
-
 [[bin]]
 name = "service-serving-layer"
 path = "src/main.rs"
