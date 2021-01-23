@@ -29,4 +29,4 @@ RUN apt-get update && apt-get --yes install openssl
 RUN openssl version
 WORKDIR app
 COPY --from=builder /app/target/release/service-serving-layer /usr/local/bin
-ENTRYPOINT ["/usr/local/bin/service-serving-layer"]
+CMD ["service-serving-layer"]
