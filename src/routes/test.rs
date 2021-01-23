@@ -1,4 +1,4 @@
-use crate::{config::get_config, helpers::APIError};
+use crate::{helpers::APIError};
 use actix_web::{get, HttpResponse};
 
 use serde::{Deserialize, Serialize};
