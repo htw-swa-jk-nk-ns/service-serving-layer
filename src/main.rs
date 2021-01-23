@@ -1,6 +1,7 @@
 use actix_cors::Cors;
 use actix_web::middleware::Logger;
 use actix_web::{App, HttpServer};
+use log::info;
 
 pub mod config;
 pub mod helpers;
@@ -12,6 +13,7 @@ pub static ADDRESS: &str = "0.0.0.0:8080";
 async fn main() -> std::io::Result<()> {
     std::env::set_var("RUST_LOG", "info");
     env_logger::init();
+    info!("Starting app...");
 
     HttpServer::new(|| {
         let _cors_old = Cors::default()
