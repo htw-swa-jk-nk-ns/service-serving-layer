@@ -1,35 +1,32 @@
 # syntax=docker/dockerfile:experimental
-FROM rust as cacher
+FROM rust as planner
+WORKDIR app
+RUN cargo install cargo-chef
+COPY . .
+RUN cargo chef prepare --recipe-path recipe.json
 
-WORKDIR service-serving-layer
-RUN mkdir .cargo
-ENV CARGO_HOME /service-serving-layer/.cargo
-# cache
-ENV USER root
-# Init an empty project
-RUN cargo init .
-COPY Cargo.lock .
-COPY Cargo.toml .
-# Build dependency
-RUN --mount=type=cache,target=/service-serving-layer/.cargo/registry \
-    --mount=type=cache,target=/service-serving-layer/release \
-    cargo build --release
-RUN rm -r src
+FROM rust as cacher
+WORKDIR app
+RUN cargo install cargo-chef
+COPY --from=planner /app/recipe.json recipe.json
+
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+    --mount=type=cache,target=/home/root/app/target \
+    cargo chef cook --release --recipe-path recipe.json
 
 FROM rust as builder
-WORKDIR service-serving-layer
-ENV CARGO_HOME /service-serving-layer/.cargo
-# Copy files to container and build
-# cache until here
-COPY --from=cacher /service-serving-layer/* .
-COPY src .
-RUN cargo build --release
-# Install dependencies, build, install as a binary under the name service-serving-layer and link to $PATH
-RUN cargo install --path .
+WORKDIR app
+COPY . .
+# Copy over cache
+COPY --from=cacher /app/target target
+COPY --from=cacher $CARGO_HOME $CARGO_HOME
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+    --mount=type=cache,target=/app/target \
+    cargo build --release --bin service-serving-layer
 
-# Run
-FROM debian:buster
+FROM rust as runtime
 RUN apt-get update && apt-get --yes install openssl
 RUN openssl version
-COPY --from=builder /usr/local/cargo/bin/service-serving-layer /usr/local/bin/service-serving-layer
-CMD ["service-serving-layer"]
+WORKDIR app
+COPY --from=builder /app/target/release/service-serving-layer /usr/local/bin
+ENTRYPOINT ["./usr/local/bin/service-serving-layer"]

@@ -1,6 +1,6 @@
-use actix_web::middleware::Logger;
-use actix_web::{guard,http, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 use actix_cors::Cors;
+use actix_web::middleware::Logger;
+use actix_web::{App, HttpServer};
 
 pub mod config;
 pub mod helpers;
@@ -10,19 +10,17 @@ pub static ADDRESS: &str = "0.0.0.0:8080";
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-
     std::env::set_var("RUST_LOG", "info");
     env_logger::init();
 
     HttpServer::new(|| {
-
         let _cors_old = Cors::default()
-              .send_wildcard()
-              .allow_any_header()
-              .allow_any_method()
-              .expose_any_header()
-              .allow_any_origin()
-              .max_age(3600);
+            .send_wildcard()
+            .allow_any_header()
+            .allow_any_method()
+            .expose_any_header()
+            .allow_any_origin()
+            .max_age(3600);
 
         let cors = Cors::permissive();
 
