@@ -6,7 +6,7 @@ pub async fn post(adress: String, endpoint: String, target: String) -> Result<()
     let client = reqwest::Client::new();
     let calculate_path = format!("{}{}", adress, endpoint);
     let resp = client.post(&calculate_path)
-    .header(reqwest::header::CONTENT_TYPE, "application/json").send().await;
+    .header(reqwest::header::CONTENT_TYPE, "application/json").body(target).send().await;
     if let Err(err) = resp {
         return Err(format!("{} answered with {}", adress, err.to_string()));
     }
