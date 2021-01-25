@@ -19,7 +19,7 @@ pub struct Candidate {
 
 #[get("/getClosestVoteDifference")]
 pub async fn exec() -> actix_web::Result<HttpResponse, APIError> {
-    let res = crate::helpers::get::<Result>(
+    let res = crate::helpers::get(
         get_config().calculate_adress,
         "getClosestVoteDifference".to_string(),
     )

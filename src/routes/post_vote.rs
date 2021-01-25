@@ -3,23 +3,15 @@ use actix_web::{post, web, HttpResponse};
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Serialize, Clone)]
-pub struct Vote {
-    pub name: String,
-    pub country: String,
-    pub candidate: String,
-}
-
 #[post("/vote")]
-pub async fn exec(info: web::Json<Vote>) -> HttpResponse {
+pub async fn exec(info: String) -> HttpResponse {
 
-    let res = crate::helpers::post::<Vote>(
+    let res = crate::helpers::post(
         get_config().raw_data_adress,
         "vote".to_string(),
-        info.into_inner(),
+        info,
     )
     .await;
-    println!("test");
     match res {
         Ok(_) => {
             return HttpResponse::Ok().finish();

@@ -1,13 +1,11 @@
 use crate::helpers::APIError;
 
-pub async fn get<T>(adress: String, endpoint: String) -> Result<T, APIError>
-where
-    T: for<'de> serde::Deserialize<'de> + serde::Serialize,
+pub async fn get(adress: String, endpoint: String) -> Result<String, APIError>
 {
     let calculate_path = format!("{}{}", adress, endpoint);
     let resp = reqwest::get(&calculate_path).await?;
-    let res = resp.json::<T>().await?;
-    log::info!("GET BODY CONTENT: {:?}", serde_json::to_string_pretty(&res));
+    let res = resp.text().await?;
+    log::info!("GET BODY CONTENT: {:?}", &res);
     return Ok(res);
 }
 

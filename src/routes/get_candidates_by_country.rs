@@ -16,7 +16,7 @@ pub struct Candidate {
 
 #[get("/getCandidatesByCountry")]
 pub async fn exec() -> actix_web::Result<HttpResponse, APIError> {
-    let res = crate::helpers::get::<Vec<Result>>(
+    let res = crate::helpers::get(
         get_config().calculate_adress,
         "getCandidatesByCountry".to_string(),
     )

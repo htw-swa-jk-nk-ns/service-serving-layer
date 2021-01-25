@@ -1,10 +1,8 @@
 use log::{info};
 
-pub async fn post<T>(adress: String, endpoint: String, target: T) -> Result<(), String>
-where
-    T: serde::Serialize,
+pub async fn post(adress: String, endpoint: String, target: String) -> Result<(), String>
 {
-    info!("POST BODY: {:?}", serde_json::to_string_pretty(&target));
+    info!("POST BODY: {:?}", &target);
     let client = reqwest::Client::new();
     let calculate_path = format!("{}{}", adress, endpoint);
     let resp = client.post(&calculate_path).json(&target).send().await;
