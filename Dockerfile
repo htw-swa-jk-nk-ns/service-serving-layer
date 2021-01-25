@@ -11,7 +11,7 @@ RUN cargo install cargo-chef
 COPY --from=planner /app/recipe.json recipe.json
 
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
-    --mount=type=cache,target=/home/root/app/target \
+    --mount=type=cache,target=/app/target \
     cargo chef cook --release --recipe-path recipe.json
 
 FROM rust as builder
@@ -21,7 +21,6 @@ COPY . .
 COPY --from=cacher /app/target target
 COPY --from=cacher $CARGO_HOME $CARGO_HOME
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
-    --mount=type=cache,target=/app/target \
     cargo build --release --bin service-serving-layer
 
 FROM rust as runtime
