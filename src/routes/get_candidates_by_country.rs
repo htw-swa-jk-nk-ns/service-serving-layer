@@ -22,5 +22,5 @@ pub async fn exec() -> actix_web::Result<HttpResponse, APIError> {
     )
     .await?;
 
-    Ok(HttpResponse::Ok().json(res))
+    Ok(HttpResponse::Ok().set(actix_web::http::header::ContentType::json()).body(res))
 }

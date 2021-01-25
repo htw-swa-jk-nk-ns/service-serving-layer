@@ -4,12 +4,12 @@ use actix_web::{post, web, HttpResponse};
 use serde::{Deserialize, Serialize};
 
 #[post("/vote")]
-pub async fn exec(info: String) -> HttpResponse {
+pub async fn exec(bytes: String) -> HttpResponse {
 
     let res = crate::helpers::post(
         get_config().raw_data_adress,
         "vote".to_string(),
-        info,
+        bytes,
     )
     .await;
     match res {

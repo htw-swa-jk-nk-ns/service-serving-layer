@@ -1,5 +1,5 @@
-use crate::{helpers::APIError};
-use actix_web::{get, HttpResponse};
+use crate::{helpers::{APIError, get}};
+use actix_web::{HttpResponse, get, http::header::ContentType};
 
 use serde::{Deserialize, Serialize};
 
@@ -10,7 +10,6 @@ pub struct Info {
 
 #[get("/test")]
 pub async fn exec() -> actix_web::Result<HttpResponse, APIError> {
-    let res = Info{info: "I work!".to_string()};
-
-    Ok(HttpResponse::Ok().json(res))
+    let content = get("https://jsonplaceholder.typicode.com/".to_string(), "todos/1".to_string()).await?;
+    Ok(HttpResponse::Ok().set(ContentType::json()).body(content))
 }

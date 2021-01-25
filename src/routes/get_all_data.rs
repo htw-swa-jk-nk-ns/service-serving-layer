@@ -17,5 +17,5 @@ pub async fn exec() -> actix_web::Result<HttpResponse, APIError> {
         crate::helpers::get(get_config().raw_data_adress, "all".to_string())
             .await?;
 
-    Ok(HttpResponse::Ok().json(res))
+    Ok(HttpResponse::Ok().set(actix_web::http::header::ContentType::json()).body(res))
 }
