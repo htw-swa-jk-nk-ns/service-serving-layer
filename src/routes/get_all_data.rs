@@ -8,8 +8,7 @@ pub struct Data {
     name: String,
     country: String,
     candidate: String,
-    date: u32,
-    id: Option<u32>
+    date: u32
 }
 
 #[get("/all")]
