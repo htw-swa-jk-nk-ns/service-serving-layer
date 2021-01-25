@@ -9,7 +9,7 @@ pub struct Data {
     country: String,
     candidate: String,
     date: u32,
-    id: u32
+    id: Option<u32>
 }
 
 #[get("/all")]
